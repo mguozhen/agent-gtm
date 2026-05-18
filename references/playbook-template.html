@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{TITLE}}</title>
+<style>
+  :root {
+    --paper: #f6f2e9;
+    --paper-2: #efeadc;
+    --ink: #1a1a1a;
+    --muted: #7a7060;
+    --line: #d8cfb8;
+    --accent: #c95400;
+    --accent-2: #2a6f4e;
+    --warning: #b35d3d;
+    --serif: "Iowan Old Style", "Charter", "Source Serif Pro", Georgia, serif;
+    --sans: -apple-system, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+    --card-bg-1: #f0e8d5;
+    --card-bg-2: #e8e3d3;
+    --card-bg-3: #ecdfc8;
+    --card-bg-4: #e3decd;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(201,84,0,.04), transparent 28%),
+      radial-gradient(circle at 88% 78%, rgba(42,111,78,.04), transparent 32%);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 64px 36px 140px; }
+
+  header { border-bottom: 1px solid var(--line); padding-bottom: 36px; margin-bottom: 64px; position: relative; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .eyebrow .date { color: var(--accent); }
+  h1 {
+    font-family: var(--serif); font-size: 64px; line-height: 1.02;
+    margin: 0 0 18px; letter-spacing: -0.015em; font-weight: 600;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    font-family: var(--serif); font-size: 22px; line-height: 1.5;
+    color: var(--ink); max-width: 960px; margin: 0 0 22px;
+  }
+  .lede b { color: var(--ink); font-weight: 700; }
+  .lede strike { text-decoration-thickness: 2.5px; color: var(--warning); }
+  .meta-row {
+    display: flex; gap: 28px; font-family: var(--mono); font-size: 11.5px;
+    color: var(--muted); margin-top: 12px; flex-wrap: wrap;
+  }
+  .meta-row b { color: var(--ink); font-weight: 500; }
+
+  .funnel {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+    margin: 18px 0 0; align-items: center;
+  }
+  .fstage {
+    background: #fff; border: 1px solid var(--line); border-radius: 4px;
+    padding: 10px 12px; text-align: center; font-size: 12px;
+    font-family: var(--mono);
+  }
+  .fstage.before { background: rgba(179, 93, 61, 0.1); border-color: rgba(179, 93, 61, 0.4); }
+  .fstage.after { background: rgba(42, 111, 78, 0.1); border-color: rgba(42, 111, 78, 0.4); }
+  .fstage b { color: var(--ink); font-family: var(--sans); font-weight: 600; font-size: 13px; }
+  .fstage .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 4px; }
+  .farrow { font-family: var(--mono); color: var(--muted); text-align: center; font-size: 14px; }
+
+  .deck {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+    margin: 56px 0;
+  }
+  @media (max-width: 900px) { .deck { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card-bg-1); border-radius: 8px; padding: 32px 34px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -16px rgba(0,0,0,.12);
+    border: 1px solid var(--line);
+  }
+  .card.c2 { background: var(--card-bg-2); }
+  .card.c3 { background: var(--card-bg-3); }
+  .card.c4 { background: var(--card-bg-4); }
+  .card-num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .25em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: var(--serif); font-size: 36px; line-height: 1.05;
+    margin: 0 0 14px; letter-spacing: -0.01em; font-weight: 600;
+  }
+  .card-name .cn { color: var(--accent); }
+  .card-shift {
+    border-left: 3px solid var(--accent); padding: 10px 0 10px 16px; margin: 16px 0 22px;
+    font-family: var(--serif); font-size: 17px; line-height: 1.45;
+    color: var(--ink); font-style: italic;
+  }
+  .card-shift strike { color: var(--warning); }
+  .card-shift b { font-style: normal; color: var(--accent); font-weight: 700; }
+
+  .h-move {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em;
+    color: var(--muted); text-transform: uppercase; margin: 26px 0 10px;
+  }
+  .move-list { padding-left: 0; list-style: none; margin: 0 0 22px; counter-reset: move; }
+  .move-list li {
+    padding: 10px 0 10px 28px; border-bottom: 1px dashed rgba(0,0,0,.1);
+    position: relative; font-size: 14.5px; line-height: 1.5;
+  }
+  .move-list li:last-child { border-bottom: 0; }
+  .move-list li::before {
+    content: counter(move) ".";
+    counter-increment: move;
+    position: absolute; left: 0; top: 10px;
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    font-weight: 600;
+  }
+  .move-list code {
+    font-family: var(--mono); font-size: 12px; background: rgba(0,0,0,.06);
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .move-list b { color: var(--ink); font-weight: 700; }
+
+  .ship-block {
+    background: #fff; border-radius: 6px; padding: 16px 20px; margin: 0 0 16px;
+    border: 1px solid var(--line);
+  }
+  .ship-block .h-ship {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em;
+    color: var(--accent-2); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .ship-block .ship-content { font-size: 13.5px; line-height: 1.5; }
+  .ship-block code {
+    font-family: var(--mono); font-size: 12px; background: rgba(0,0,0,.06);
+    padding: 1px 6px; border-radius: 3px;
+  }
+
+  .kpi {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 16px; background: rgba(0,0,0,.04); border-radius: 4px;
+    margin-top: 14px;
+  }
+  .kpi .kpi-l { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; color: var(--muted); text-transform: uppercase; }
+  .kpi .kpi-v { font-family: var(--mono); font-size: 13px; color: var(--ink); font-weight: 600; }
+
+  section { margin-top: 80px; }
+  h2 {
+    font-family: var(--serif); font-size: 38px; line-height: 1.1;
+    margin: 0 0 8px; letter-spacing: -0.005em; font-weight: 600;
+  }
+  .h2-sub {
+    font-family: var(--mono); font-size: 11.5px; color: var(--muted);
+    letter-spacing: .18em; text-transform: uppercase; margin-bottom: 32px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--line);
+  }
+
+  .roadmap {
+    display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 0;
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    background: #fff;
+  }
+  .roadmap .rh, .roadmap .rc {
+    padding: 14px 16px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
+    font-size: 13px; line-height: 1.45;
+  }
+  .roadmap .rh {
+    background: var(--paper-2); font-family: var(--mono); font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+    font-weight: 600;
+  }
+  .roadmap .rc:last-child { border-right: 0; }
+  .roadmap .week {
+    background: var(--card-bg-1); font-family: var(--mono); font-size: 12px;
+    font-weight: 700; color: var(--accent); text-align: center;
+  }
+  .roadmap .rc strong { color: var(--ink); font-weight: 700; }
+  .roadmap .rc code {
+    font-family: var(--mono); font-size: 11.5px; background: rgba(0,0,0,.06);
+    padding: 1px 5px; border-radius: 3px;
+  }
+
+  /* Shipped status table */
+  .shipped {
+    display: grid; grid-template-columns: auto 80px 1fr;
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    background: #fff;
+  }
+  .shipped .sh, .shipped .sc {
+    padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px;
+  }
+  .shipped .sh {
+    background: var(--paper-2); font-family: var(--mono); font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 600;
+  }
+  .shipped .sc.status-done { color: var(--accent-2); font-family: var(--mono); font-weight: 600; }
+  .shipped .sc.status-partial { color: #b58900; font-family: var(--mono); font-weight: 600; }
+  .shipped .sc.status-todo { color: var(--warning); font-family: var(--mono); font-weight: 600; }
+  .shipped .sc { line-height: 1.5; }
+  .shipped .sc code { font-family: var(--mono); font-size: 11.5px; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 3px; }
+
+  /* Differentiation table */
+  .diff {
+    width: 100%; border-collapse: collapse; background: #fff;
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  }
+  .diff th, .diff td {
+    padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left;
+    font-size: 13px; line-height: 1.5; vertical-align: top;
+  }
+  .diff th {
+    background: var(--paper-2); font-family: var(--mono); font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 600;
+  }
+  .diff td.dim { font-weight: 600; }
+  .diff code { font-family: var(--mono); font-size: 11.5px; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 3px; }
+
+  footer {
+    border-top: 1px solid var(--line); padding-top: 28px; margin-top: 100px;
+    font-family: var(--mono); font-size: 11.5px; color: var(--muted); line-height: 1.7;
+  }
+  footer b { color: var(--ink); font-weight: 600; }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  .principle {
+    background: #1a1a1a; color: #f4ecd8; padding: 30px 36px; margin: 36px 0 24px;
+    border-radius: 6px; font-family: var(--serif); font-size: 20px; line-height: 1.5;
+    position: relative;
+  }
+  .principle::before {
+    content: "§"; font-size: 56px; position: absolute; top: 10px; right: 30px;
+    color: var(--accent); opacity: 0.5;
+  }
+  .principle .ptag {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .25em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+    display: block;
+  }
+  .principle em { color: var(--accent); font-style: italic; }
+
+  .close-paragraphs p {
+    font-family: var(--serif); font-size: 18px; line-height: 1.6; max-width: 880px;
+    margin: 16px 0 0;
+  }
+  .close-paragraphs p:first-child { margin-top: 30px; }
+  .close-paragraphs b { color: var(--ink); font-weight: 700; }
+  .close-paragraphs i { color: var(--accent); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">
+      <span>{{EYEBROW_LEFT}}</span>
+      <span class="date">{{EYEBROW_DATE}}</span>
+    </div>
+    <h1>{{H1_HTML}}</h1>
+    <p class="lede">{{LEDE_HTML}}</p>
+
+    <div class="funnel">
+      <div class="fstage before"><div class="label">旧 · 发现</div><b>App Store / SEO</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage before"><div class="label">旧 · 引流</div><b>落地页 / 广告</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage before"><div class="label">旧 · 内容</div><b>Blog / 视频</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage before"><div class="label">旧 · 分发</div><b>多渠道发帖</b></div>
+    </div>
+    <div class="funnel" style="margin-top:8px">
+      <div class="fstage after"><div class="label">新 · 发现</div><b>MCP catalog</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage after"><div class="label">新 · 引流</div><b>Capability manifest</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage after"><div class="label">新 · 内容</div><b>OpenAPI / Recipe</b></div>
+      <div class="farrow">→</div>
+      <div class="fstage after"><div class="label">新 · 分发</div><b>Tool call & 默认工具箱</b></div>
+    </div>
+
+    <div class="meta-row">{{META_ROW_HTML}}</div>
+  </header>
+
+  <section style="margin-top:0">
+    <div class="principle">
+      <span class="ptag">{{PRINCIPLE_INTRO_TAG}}</span>
+      {{PRINCIPLE_INTRO_BODY_HTML}}
+    </div>
+  </section>
+
+  {{SHIPPED_SECTION_HTML}}
+
+  <section>
+    <h2>四张卡</h2>
+    <div class="h2-sub">每张 = 漏斗的一个环节 · 一条 mindset shift · 5 个具体动作 · 本季度交付物 · KPI</div>
+    <div class="deck">
+      {{CARDS_HTML}}
+    </div>
+  </section>
+
+  <section>
+    <h2>8 周 Roadmap</h2>
+    <div class="h2-sub">{{ROADMAP_SUB}}</div>
+    <div class="roadmap">
+      <div class="rh">Week</div>
+      <div class="rh">Discovery (Card 1)</div>
+      <div class="rh">Traffic (Card 2)</div>
+      <div class="rh">Content (Card 3)</div>
+      <div class="rh">Distribution (Card 4)</div>
+      {{ROADMAP_ROWS_HTML}}
+    </div>
+  </section>
+
+  {{DIFFERENTIATION_SECTION_HTML}}
+
+  <section>
+    <h2>第一性原理</h2>
+    <div class="h2-sub">为什么这条路对，剩下的只是执行</div>
+    <div class="principle">
+      <span class="ptag">{{PRINCIPLE_CLOSE_TAG}}</span>
+      {{PRINCIPLE_CLOSE_BODY_HTML}}
+    </div>
+    <div class="close-paragraphs">{{CLOSING_PARAGRAPHS_HTML}}</div>
+  </section>
+
+  <footer>{{FOOTER_HTML}}</footer>
+
+</div>
+</body>
+</html>

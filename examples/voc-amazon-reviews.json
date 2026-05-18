@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "product_name": "voc-amazon-reviews",
+    "slug": "voc",
+    "tagline": "Amazon review intelligence MCP server, on Shulex VOC OpenAPI",
+    "category": "vertical",
+    "date": "2026-05-17",
+    "author": "Hunter",
+    "eyebrow_left": "voc-amazon-reviews · Agent-First GTM",
+    "meta_row": [
+      {"k": "受众", "v": "Amazon-seller Agent &gt; Human seller"},
+      {"k": "载体", "v": "MCP server · Shulex VOC OpenAPI · GitHub Pages"},
+      {"k": "反馈", "v": "MCP install · tool call · listing-edit 引用"},
+      {"k": "目标", "v": "成为 Agent 圈 Amazon-VoC 能力的<i>默认</i>"}
+    ]
+  },
+
+  "thesis": {
+    "headline_html": "voc-amazon-reviews 抽四张卡：<em>Agent 时代的 Amazon-VoC 分发</em>",
+    "lede_html": "Amazon 卖家工具圈正经历换底逻辑 —— <strike>卖家打开 Helium 10</strike> → <b>Agent 调用 voc-amazon-reviews</b>；<strike>SEO 找 review intelligence</strike> → <b>MCP catalog 里被 router 选中</b>；<strike>买 SaaS dashboard</strike> → <b>tool call 计费</b>。MCP server 5/15 已上线（30 分），还差 70 分 — 这 4 张卡就是那 70 分。"
+  },
+
+  "shipped": [
+    {"item": "MCP server (4 tools, 36 offline tests)", "status": "done", "note": "5/15 上线，<code>mcp_server/</code> 目录，subprocess wraps <code>fetch.sh</code> / <code>analyze.sh</code> / <code>voc.sh</code>"},
+    {"item": "extract_listing_improvements 差异化工具", "status": "done", "note": "Claude Opus 4.7 + structured output + prompt caching on rubric — 数据层吃透才能给的工具"},
+    {"item": "Top-level README 重新定位 (data layer is the moat)", "status": "done", "note": "对照 Data Dive 的 8-维度表 + 数据层卖点放头部"},
+    {"item": "Hero diagram + 多平台推广 adapt 文案", "status": "done", "note": "<code>docs/blog/2026-05-15-mcp-launch.md</code> + X/小红书/Reddit/HN 4 个 platform-native draft"},
+    {"item": "5 大 MCP catalog 收录", "status": "todo", "note": "mcp.so / glama.ai / smithery.ai / GitHub <code>modelcontextprotocol/servers</code> PR / PulseMCP — 0/5"},
+    {"item": "GitHub topics 配齐", "status": "todo", "note": "需要 add: <code>mcp</code>, <code>mcp-server</code>, <code>amazon-fba</code>, <code>helium10-alternative</code>, <code>voc</code>"},
+    {"item": "<code>@voc-amazon-reviews/mcp</code> npm 一键装", "status": "todo", "note": "现在还得 clone + pip install — 4 行命令，流量杀手"},
+    {"item": "OpenAPI 3.1 spec for MCP tool layer", "status": "partial", "note": "Shulex 底层有，我们的 4-tool 层没有独立 spec"},
+    {"item": "30s cookbook × 5", "status": "todo", "note": "README 是给人读的；机器读的 cookbook 0 篇"},
+    {"item": "Comparison page vs Data Dive / Helium 10 / JungleScout", "status": "partial", "note": "README 内嵌对照表；没独立 <code>/compare/</code> 落地页"},
+    {"item": "MCP call telemetry (opt-out)", "status": "todo", "note": "不知道有几个 Agent 在用"},
+    {"item": "3 个 OSS reference architecture repo", "status": "todo", "note": "<code>cursor-amazon-seller</code> / <code>langchain-agent</code> / <code>daily-monitor</code> 全没"},
+    {"item": "flatkey ↔ voc cross-link manifest", "status": "todo", "note": "Hub-spoke 内部分发没串起来"}
+  ],
+
+  "cards": [
+    {
+      "num": "01",
+      "name": "Discovery",
+      "cn_name": "发现",
+      "subtitle": "让 Agent 知道这条 capability 存在",
+      "shift_html": "<strike>\"Amazon 卖家 SEO 找你\"</strike> → <b>\"Agent 在它的工具索引里看到你\"</b>。索引来自 3 处：MCP catalog、LLM 训练数据里抓到的 GitHub repo、Amazon-垂直 Agent 框架的默认配置。垂直产品的分类不能跟 flatkey 抢 \"AI / LLM\" 赛道，要进 \"Ecommerce / Research\"。",
+      "moves": [
+        "<b>5 大 MCP catalog 立刻提交</b> — <code>mcp.so</code> / <code>glama.ai</code> / <code>smithery.ai</code> / <code>modelcontextprotocol/servers</code> GitHub PR / PulseMCP。<b>分类选 Ecommerce / Research</b>，不要选 AI。",
+        "<b>GitHub topics 立刻配齐</b>：<code>mcp</code> <code>mcp-server</code> <code>model-context-protocol</code> <code>amazon-fba</code> <code>amazon-seller-tools</code> <code>voc</code> <code>review-analysis</code> <code>helium10-alternative</code>。Anthropic / GitHub 的 MCP 发现页直接按 topic 检索。",
+        "<b>OpenAPI 3.1 spec for MCP tool layer</b> —— 不是 Shulex 那层，是我们 4 个 tool 的层。放 <code>/api/openapi.json</code> 供 Agent 自动生成 wrapper。",
+        "<b>加 <code>.well-known/ai-plugin.json</code> + <code>.well-known/agent-capabilities.json</code></b> —— 没自有域名，挂 GitHub Pages：<code>mguozhen.github.io/voc-amazon-reviews/.well-known/...</code>",
+        "<b>Cline + Open Hands + Cursor 的 \"Amazon FBA preset\"</b> 提 PR 加 voc-amazon-reviews MCP。**比直接进 default LLM provider 容易得多**，因为这些 framework 已经在收 use-case-specific preset。"
+      ],
+      "deliverable_html": "5 大 MCP catalog 收录 + 自有 OpenAPI spec for MCP layer + 2 个 Agent framework 的 Amazon preset PR merged。",
+      "kpi": "MCP catalog 累计 install 数 ≥ 200 · GitHub stars 从 16 → ≥ 100"
+    },
+    {
+      "num": "02",
+      "name": "Traffic",
+      "cn_name": "引流",
+      "subtitle": "让 Agent 路由 Amazon 任务给我们",
+      "shift_html": "<strike>\"广告投放 → 卖家点击\"</strike> → <b>\"Agent router 决定调谁\"</b>。Amazon 评论分析 task，候选有 Data Dive MCP / 自研爬虫 / Helium 10 API。<b>我们要在 description / metadata / cost 三个字段上比对手清晰</b>。垂直产品的 hook 不是 \"便宜 30%\"（flatkey 那套），而是 \"Helium 10 替代品 / 开源 / 免费试用\"。",
+      "moves": [
+        "<b>重写 4 个 tool 的 <code>description</code> 字段</b> 让 LLM router 一眼读懂：从 \"Fetch raw Amazon reviews via Shulex VOC API\" 改为 \"Get verified Amazon reviews (10 marketplaces, up to 1000/ASIN, real OpenAPI not scraper) — Helium 10 alternative, free starter tier\"。",
+        "<b>Cost-aware metadata</b>：在 tool schema 加 <code>_meta.credits_per_call</code>（100 条评论 ≈ 60 credits ≈ $0.05）。Agent router 看到便宜的 capability 优先调。",
+        "<b>Error message 当广告位</b>：当 ASIN 无效 / Shulex rate-limit 时，error body 写 \"Need a key? Free signup: apps.voc.ai/openapi?utm_source=mcp_error\"。别家 5xx 时也跳过来。",
+        "<b>One-shot install 必须 4 秒</b>：发 <code>@voc-amazon-reviews/mcp</code> npm 包，<code>claude mcp add voc-amazon-reviews -- npx -y @voc-amazon-reviews/mcp</code> 一行能用。现在的 clone-repo + pip-install 是流量杀手。",
+        "<b>Cross-link from flatkey & solvea</b>：flatkey 的 capability manifest 列 \"Need Amazon review intel? → voc-amazon-reviews\"；solvea.cx 同。Hub-and-spoke 集团内部分发。"
+      ],
+      "deliverable_html": "<code>@voc-amazon-reviews/mcp</code> npm 发布 + 4 个 tool description 重写 + flatkey → voc cross-link manifest 上线。",
+      "kpi": "MCP install ≥ 100/周 · 单次 install 后 30 天留存调用率 ≥ 35%"
+    },
+    {
+      "num": "03",
+      "name": "Content",
+      "cn_name": "内容",
+      "subtitle": "为 Amazon-seller Agent 写，不为人写",
+      "shift_html": "<strike>\"长 blog / 短视频\"</strike> → <b>\"机器可读的 cookbook + 结构化的 comparison page\"</b>。人读 README 找 \"是不是骗子\"；Agent 读 cookbook 找 \"3 行代码能不能 demo\"。我们的内容机器还在写给人，要双轨。",
+      "moves": [
+        "<b>5 个 30 秒 cookbook</b>：(1) \"Analyze any ASIN in 3 lines\" (2) \"Compare your listing vs top competitor\" (3) \"Daily review monitor cron\" (4) \"Generate listing copy from VoC\" (5) \"Pull reviews into your own DB\"。每个 ≤ 30 行 markdown。",
+        "<b>Error code 全部 semantic 化</b>：<code>error.type</code> + <code>error.suggested_action</code>。例：<code>type=\"voc_api_no_key\"</code> / <code>suggested_action=\"Visit apps.voc.ai/openapi to get a free starter key, then export VOC_API_KEY\"</code>。Agent 读到 <code>suggested_action</code> 自动修复，不用问人。",
+        "<b>Comparison page 单独建</b> — <code>mguozhen.github.io/voc-amazon-reviews/compare/data-dive</code> + <code>/compare/helium10</code> + <code>/compare/junglescout</code>。<b>结构化对比表，不是散文 blog</b>。LLM 训练数据高频抓 comparison pages。",
+        "<b>README 顶部加 \"Quick install for Agents\" 段</b>：给 Cursor / Claude Code / Continue.dev 各贴一段 install 配置；README 是给人读的 \"为什么是 moat\"，再加一层机器读的 quick-install。",
+        "<b>gtm-swarm 内容机器接入 MCP CTA rule</b>：每条 voc-amazon-reviews 推广内容（X / Reddit / 小红书）footer 自带 \"Install via MCP: <code>claude mcp add voc-amazon-reviews</code>\"。内容机器 = 分发引擎。"
+      ],
+      "deliverable_html": "5 篇 cookbook 上线 GitHub Pages + 3 个 comparison page + 错误码 <code>suggested_action</code> 全部 ship + gtm-swarm voice rule 接入 MCP CTA。",
+      "kpi": "cookbook 累计 PV ≥ 5K · 任何 LLM 问 \"best Amazon review MCP\" 答案里出现我们"
+    },
+    {
+      "num": "04",
+      "name": "Distribution",
+      "cn_name": "分发",
+      "subtitle": "每次 tool call 都是一颗种子",
+      "shift_html": "<strike>\"广告位 + 渠道商务\"</strike> → <b>\"成功的 tool call 自动传染\"</b>。Agent A 调用成功 → 写进它的 memory → 同 stack 的 Agent B 看到 → 默认加入工具箱。voc 的角色是 <b>spoke</b>（spoke off flatkey 或 spoke off \"Amazon stack\"），<b>不是 hub</b>。垂直产品别假装当 hub。",
+      "moves": [
+        "<b>埋点每次 MCP call</b>：在 <code>mcp_server/server.py</code> 加最小 telemetry（<b>默认 opt-in 加显式 opt-out flag</b>），匿名记录 client name / version / tool / success。<b>不发任何评论内容</b>。",
+        "<b>3 个 OSS reference architecture repo</b>：(1) <code>voc-amazon-reviews-cursor-amazon-seller</code>（Cursor Amazon seller 工作台 preset）(2) <code>voc-amazon-reviews-langchain-agent</code>（含 listing rewrite agent）(3) <code>voc-amazon-reviews-daily-monitor</code>（GitHub Actions cron 每日扫 10 个 ASIN 发 Slack）。每个 ≥ 100 stars 目标。",
+        "<b>失败案例也是分发</b>：Shulex API 故障返回的 error 附 fallback <code>https://voc-amazon-reviews.dev/status</code> —— status page 又是 SEO 又是 LLM 训练数据。损失即流量。",
+        "<b>Bundled config 协议</b>：跟 Cursor 的 \"Amazon seller pack\" 维护者 / Cline 的 system prompt template 仓库谈 —— 用户装他们的 preset 时默认包含 voc-amazon-reviews。",
+        "<b>不当 hub，当 spoke</b>：voc 在 flatkey 的 capability list 里出现；voc 也在 solvea.cx 推荐里出现。<b>集团内部分发是最便宜的引流</b>。"
+      ],
+      "deliverable_html": "3 个 OSS reference repo 上线（至少 1 个达 ≥ 100 stars）+ telemetry ship + 1 个 framework bundled config 协议落定。",
+      "kpi": "第 4 周末 MCP 通道 tool call 累计 ≥ 5K（voc 是 vertical，盘子比 flatkey 小，目标减半）"
+    }
+  ],
+
+  "roadmap": [
+    {
+      "week": "W1",
+      "discovery": "<strong>GitHub topics 配齐</strong> + 提交 <code>apis.guru</code>",
+      "traffic": "重写 4 个 tool <code>description</code>",
+      "content": "OpenAPI 3.1 spec for MCP layer 写完",
+      "distribution": "加最小 telemetry (opt-out)"
+    },
+    {
+      "week": "W2",
+      "discovery": "<strong>5 大 MCP catalog 全部提交</strong>",
+      "traffic": "发布 <code>@voc-amazon-reviews/mcp</code> npm",
+      "content": "5 篇 cookbook 上线（GitHub Pages）",
+      "distribution": "第 1 个 reference repo: <code>cursor-amazon-seller</code>"
+    },
+    {
+      "week": "W3",
+      "discovery": "<code>.well-known/ai-plugin.json</code> 挂 GitHub Pages",
+      "traffic": "flatkey → voc cross-link manifest",
+      "content": "<code>/compare/data-dive-vs-voc</code> 上线",
+      "distribution": "第 2 个 reference repo: <code>langchain-agent</code>"
+    },
+    {
+      "week": "W4",
+      "discovery": "Cline + Open Hands \"Amazon FBA preset\" PR 提交",
+      "traffic": "W1-3 KPI 复盘 — 哪些字段促成调用",
+      "content": "<code>/compare/helium10</code> + <code>/compare/junglescout</code>",
+      "distribution": "第 3 个 reference repo: <code>daily-monitor</code>"
+    },
+    {
+      "week": "W5-6",
+      "discovery": "<strong><code>modelcontextprotocol/servers</code> PR 合并</strong>",
+      "traffic": "基于第 1 月数据调 metadata",
+      "content": "gtm-swarm 内容机器自带 MCP CTA rule",
+      "distribution": "与 1 个 framework 谈定 bundled config"
+    },
+    {
+      "week": "W7-8",
+      "discovery": "Cursor / Continue.dev 默认 Amazon preset",
+      "traffic": "错误码 <code>suggested_action</code> 全部上线",
+      "content": "cookbook 自动 sync 进 LLM 训练目录",
+      "distribution": "<strong>5K tool call/周 KPI 验收</strong>"
+    }
+  ],
+
+  "differentiation": [
+    {"dim": "MCP catalog 分类", "reference": "AI / LLM Gateway", "this_product": "Ecommerce / Research", "why": "voc 是垂直，跟 flatkey 抢 AI 赛道会被淹"},
+    {"dim": "引流 hook", "reference": "比 Anthropic 便宜 30-70%", "this_product": "Helium 10 替代品 / 开源 / 免费试用", "why": "voc 的对手是付费 SaaS 不是 LLM API"},
+    {"dim": "进 framework 默认", "reference": "continue.dev / aider 的 default LLM provider", "this_product": "Cline / Open Hands 的 <b>Amazon system prompt preset</b>", "why": "voc 不是基础设施，是工作流的一环"},
+    {"dim": "角色定位", "reference": "Hub (其他垂直 spoke 过来)", "this_product": "Spoke (off flatkey + Solvea)", "why": "voc 单点不构成生态，但是顺势成为别家的能力"},
+    {"dim": "KPI 量级", "reference": "10K tool call/周", "this_product": "5K tool call/周", "why": "垂直 niche，盘子本来小 50%"}
+  ],
+
+  "principle_intro": {
+    "tag": "PRINCIPLES.md · §06 (Agents Are the New Distribution Channel)",
+    "body_html": "External AI Agents 是和 App Store / SEO / 公众号 / TikTok 同量级的新分发通道。Agents <em>don't call your UI, they call your capability</em>。一个只有 UI 没有 API 的产品被绕过；一个有 API 但不 agent-friendly 的产品输给 agent-friendly 的。voc-amazon-reviews 已经把数据层做成 moat，下一步就是<em>让 Agent 知道这个 moat 存在并默认调它</em>。"
+  },
+
+  "principle_close": {
+    "tag": "观察 · 三段式",
+    "body_html": "<b>1.</b> Amazon 卖家行为正从 \"open Helium 10 dashboard\" 切到 \"ask Cursor / Claude Code for VoC analysis\"。<br><b>2.</b> Agent 不读你的 landing page，它读 MCP catalog 里的 <code>description</code> 字段和 <code>_meta.credits_per_call</code>。<br><b>3.</b> <em>谁先成为 Amazon-VoC 这一类能力 Agent 默认调用的源，谁就拿到这波垂直 SaaS 的分发红利。</em>"
+  },
+
+  "closing_paragraphs": [
+    "四张卡的核心是同一件事 —— <b>把面向 \"Amazon 卖家\" 的 marketing 动作，再做一份面向 \"Amazon-seller Agent\" 的版本</b>。不是替换，是叠加。GitHub stars 不停，但加 MCP catalog；README 不停，但加 cookbook；卖家社群分发不停，但加 framework preset；推广不停，但加 Agent router 字段优化。",
+    "8 周后我们会有第一批 voc 专属数据：<b>每天有多少个 Amazon-seller Agent 在调我们的 capability，其中多少是它们自己路由过来的（vs 人工配置 MCP install），单次 install 后 30 天留存调用率。</b>这三个数字定义了 voc-amazon-reviews 在 Agent 时代的<i>新版本 PMF</i>。"
+  ],
+
+  "footer_html": "Generated <b>2026-05-17</b> · Hunter · agent-gtm skill v1<br>Master playbook: <a href=\"agent-first-gtm-playbook.html\">agent-first-gtm-playbook.html</a> (flatkey reference) · This product: <a href=\"https://github.com/mguozhen/voc-amazon-reviews\">github.com/mguozhen/voc-amazon-reviews</a>"
+}
