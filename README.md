@@ -1,58 +1,51 @@
 # agent-gtm
 
-A collection of [Claude Code](https://claude.com/claude-code) skills for **agent-era GTM** — building, operating, and distributing products in a world where AI agents are the new distribution channel.
+Repository for agent-era GTM methodology and X automation operations.
 
-## Skills in this repo
+## What is in this repo
 
-| Skill | What it does |
+| Path | Purpose |
 |---|---|
-| [`agent-gtm`](skills/agent-gtm/) | The 4-card Agent-First GTM playbook — translates any product's go-to-market plan into Agent-era moves across Discovery / Traffic / Content / Distribution, with an 8-week roadmap and a printable HTML deck. |
-| [`hunter-x-agent`](skills/hunter-x-agent/) | Operate and replicate the Hunter X growth-engine stack — engage daemon, Telegram approval bridge, reply-quality coach, content scouts, booster accounts. Project-specific skill for the multi-account X agent system. |
+| [`skills/agent-gtm`](skills/agent-gtm/) | Claude Code skill for the 4-card Agent-First GTM playbook (Discovery / Traffic / Content / Distribution). |
+| [`skills/hunter-x-agent`](skills/hunter-x-agent/) | Claude Code skill for operating and replicating the Hunter X automation stack. |
+| [`x_agent/`](x_agent/) | X automation code and account configs (scripts + per-account config/playbook/targets). |
+| [`projects/voc-amazon-reviews/`](projects/voc-amazon-reviews/) | Project snapshot included in this repo (MCP server, docs, scripts, tests). |
 
-## Install
+## Skills
 
-Clone the repo, then symlink each skill folder into your Claude Code skills directory:
+### `agent-gtm`
+
+Converts a product into an agent-first GTM plan with:
+
+- 4 cards (Discovery / Traffic / Content / Distribution)
+- shipped-status audit
+- 8-week execution roadmap
+- rendered HTML playbook deck
+
+Typical prompts:
+
+- `agent-gtm <product>`
+- `给 <product> 做一份 agent gtm`
+
+### `hunter-x-agent`
+
+Operator workflow for the Hunter X stack:
+
+- daemon status/debug
+- Telegram approval bridge checks
+- queue and posting flow troubleshooting
+- new-handle replication runbook
+
+## Install (Claude Code skills)
 
 ```bash
 git clone https://github.com/mguozhen/agent-gtm.git ~/code/agent-gtm
-ln -s ~/code/agent-gtm/skills/agent-gtm       ~/.claude/skills/agent-gtm
-ln -s ~/code/agent-gtm/skills/hunter-x-agent  ~/.claude/skills/hunter-x-agent
+ln -s ~/code/agent-gtm/skills/agent-gtm ~/.claude/skills/agent-gtm
+ln -s ~/code/agent-gtm/skills/hunter-x-agent ~/.claude/skills/hunter-x-agent
 ```
 
-Or copy individual skills directly:
+For project-scoped use, place a skill under `.claude/skills/` in that project.
 
-```bash
-cp -R skills/agent-gtm ~/.claude/skills/agent-gtm
-```
+## License
 
-For project-scoped use, drop a skill into the target repo's `.claude/skills/` instead of `~/.claude/skills/`.
-
-## Skill summaries
-
-### `agent-gtm` — the 4-card playbook
-
-The premise: **agents are a new distribution channel** — on the order of the App Store, SEO, or TikTok at their inflection points. Agents don't call your UI, they call your *capability*.
-
-| Card | Old funnel | New funnel |
-|---|---|---|
-| **01 · Discovery** | App Store / SEO | MCP catalog · capability manifest · training data |
-| **02 · Traffic** | Landing page / ads | Agent router picks you on cost + description metadata |
-| **03 · Content** | Blog / video | OpenAPI · cookbooks · semantic error codes |
-| **04 · Distribution** | Channel BD | Successful tool calls self-propagate · hub-and-spoke cross-links |
-
-Invoke with `agent-gtm <product>` or "给 <product> 做一份 agent gtm". Produces an HTML deck, a JSON spec, and a roadmap.
-
-### `hunter-x-agent` — operate and replicate the X stack
-
-A multi-process growth engine for an X (Twitter) account — runs as launchd daemons on macOS, drives a per-account headless Chrome via CDP, generates replies/posts with Claude, and routes every draft through a Telegram approval bridge.
-
-Two modes:
-
-- **Operate** — check daemon status, tune `engage_config.json`, debug the reply queue, interpret coach reports
-- **Replicate** — stand up the full stack for a new X handle (chrome profile, .env, config, plists, login bootstrap, smoke test)
-
-This skill expects to be installed inside the x-agent repo as a project skill (it references `engage_config.json`, `scripts/engage_daemon.py`, etc.).
-
----
-
-MIT — methodology + operations skills, no warranty. Built for Claude Code.
+MIT
