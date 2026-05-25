@@ -1,0 +1,12 @@
+{
+  "code": "0",
+  "message": "成功",
+  "data": {
+    "asin": "B099Z93WD9",
+    "market": "US",
+    "status": "PENDING",
+    "taskId": "task_mock_unit_test_001",
+    "message": "Realtime review task accepted"
+  },
+  "timestamp": 1776559595055
+}

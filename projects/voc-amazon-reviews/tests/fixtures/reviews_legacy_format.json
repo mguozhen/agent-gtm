@@ -1,0 +1,5 @@
+[
+  {"rating": 5, "title": "Great product", "body": "Love this tablet for reading", "date": "2026-03-15", "verified": true},
+  {"rating": 2, "title": "Disappointing", "body": "Battery dies too fast", "date": "2026-03-10", "verified": false},
+  {"rating": 4, "title": "Good value", "body": "Works well for the price", "date": "2026-03-08", "verified": true}
+]
