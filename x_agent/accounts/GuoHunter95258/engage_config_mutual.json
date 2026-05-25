@@ -1,0 +1,42 @@
+{
+  "hunter_handle": "GuoHunter95258",
+  "hunter_port": 10000,
+  "target_accounts": [],
+  "auto_like": true,
+  "approval_mode": "auto_post",
+  "daily_caps": {
+    "total_replies": 20,
+    "per_target": 10
+  },
+  "filters": {
+    "max_post_age_minutes": 180,
+    "max_existing_replies": 9999,
+    "skip_retweets": false,
+    "skip_replies": true,
+    "skip_link_only": false,
+    "min_post_length": 5
+  },
+  "polling": {
+    "sweep_interval_sec_range": [
+      270,
+      330
+    ],
+    "per_target_delay_sec_range": [
+      3,
+      6
+    ]
+  },
+  "keyword_engage": {
+    "enabled": false
+  },
+  "telegram": {
+    "bot_token_env": "TELEGRAM_BOT_TOKEN_HUNTER",
+    "chat_id_env": "TELEGRAM_CHAT_ID_HUNTER"
+  },
+  "generation": {
+    "model": "claude-haiku-4-5-20251001",
+    "examples_per_prompt": 10,
+    "max_reply_chars": 240,
+    "max_post_chars": 280
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "hunter_handle": "VOC_ai",
+  "hunter_port": 10002,
+  "_target_accounts_note": "Small relationship list only — accounts where we want to build a real presence. Bulk engagement runs through keyword_engage.",
+  "target_accounts": [
+    "jbryanporter",
+    "TaylorHoliday",
+    "moizali",
+    "Codie_Sanchez",
+    "daviefogarty",
+    "eliweisss",
+    "Molson_Hart",
+    "Jon_Elder"
+  ],
+  "archetypes": {
+    "dtc_founder": [
+      "jbryanporter",
+      "moizali",
+      "daviefogarty"
+    ],
+    "dtc_operator": [
+      "TaylorHoliday",
+      "Codie_Sanchez"
+    ],
+    "amazon_expert": [
+      "Molson_Hart",
+      "Jon_Elder"
+    ],
+    "cx_retention": [
+      "eliweisss"
+    ]
+  },
+  "daily_caps": {
+    "total_replies": 300,
+    "per_target": 5
+  },
+  "filters": {
+    "max_post_age_minutes": 120,
+    "max_existing_replies": 150,
+    "skip_retweets": true,
+    "skip_replies": true,
+    "skip_link_only": true,
+    "min_post_length": 20
+  },
+  "polling": {
+    "sweep_interval_sec_range": [
+      270,
+      330
+    ],
+    "per_target_delay_sec_range": [
+      3,
+      6
+    ]
+  },
+  "keyword_engage": {
+    "enabled": true,
+    "_tiers": "Tier 1 = Amazon seller pain/wins (highest intent); Tier 2 = DTC/ecom brand building (broad audience); Tier 3 = reviews/feedback (VOC.ai angle); Tier 4 = retention/LTV (adjacent)",
+    "_dropped": "DTC bare, ecommerce brand, LTV ecommerce, repeat purchase — zero live yield 2026-05-21",
+    "keywords": [
+      "\"Amazon FBA\"",
+      "\"Amazon seller\"",
+      "\"Amazon reviews\"",
+      "\"private label\" Amazon",
+      "\"Amazon PPC\"",
+      "\"Amazon listing\"",
+      "\"FBA seller\"",
+      "\"ecommerce founder\"",
+      "\"Shopify\" store",
+      "\"product reviews\"",
+      "\"customer reviews\"",
+      "\"ecommerce brand\"",
+      "\"Shopify app\"",
+      "\"Shopify conversion\"",
+      "\"Amazon ranking\"",
+      "\"seller central\"",
+      "\"AOV\" ecommerce",
+      "\"CRO\" ecommerce",
+      "\"customer retention\" ecommerce",
+      "\"subscription ecommerce\""
+    ],
+    "keywords_per_sweep": 10,
+    "results_per_keyword": 10,
+    "filters": {
+      "min_post_likes": 3,
+      "max_post_age_minutes": 60,
+      "skip_targets": true
+    }
+  },
+  "telegram": {
+    "bot_token_env": "TELEGRAM_BOT_TOKEN_VOC_AI",
+    "chat_id_env": "TELEGRAM_CHAT_ID_VOC_AI"
+  },
+  "quote_scout": {
+    "enabled": true,
+    "keywords_per_run": 10,
+    "results_per_keyword": 10,
+    "max_drafts_per_run": 2,
+    "dedup_window_hours": 48,
+    "filters": {
+      "min_post_likes": 50,
+      "max_post_age_minutes": 360,
+      "skip_targets": true
+    },
+    "keywords": [
+      "\"Amazon FBA\"",
+      "\"Amazon seller\"",
+      "\"Amazon reviews\"",
+      "\"private label\" Amazon",
+      "\"Amazon PPC\"",
+      "\"Amazon listing\"",
+      "\"FBA seller\"",
+      "\"ecommerce founder\"",
+      "\"Shopify\" store",
+      "\"product reviews\"",
+      "\"customer reviews\"",
+      "\"ecommerce brand\"",
+      "\"Shopify app\"",
+      "\"Shopify conversion\"",
+      "\"Amazon ranking\"",
+      "\"seller central\"",
+      "\"AOV\" ecommerce",
+      "\"CRO\" ecommerce",
+      "\"customer retention\" ecommerce",
+      "\"subscription ecommerce\""
+    ]
+  },
+  "generation": {
+    "model": "claude-haiku-4-5-20251001",
+    "examples_per_prompt": 10,
+    "max_reply_chars": 240,
+    "max_post_chars": 280
+  },
+  "inbound": {
+    "max_engagement_age_minutes": 5,
+    "use_notifications": true
+  }
+}

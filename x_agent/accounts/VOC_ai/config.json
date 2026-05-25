@@ -1,0 +1,9 @@
+{
+  "handle": "VOC_ai",
+  "chrome_port": 10002,
+  "daily_limits": {
+    "posts": 0,
+    "replies": 10,
+    "likes": 0
+  }
+}
