@@ -2,6 +2,15 @@
 
 This is the canonical map for VOC_ai automation connected to the current agent setup.
 
+## Multica Workspace
+
+- Workspace slug: `voc-ai`
+- Workspace ID: `362a62fc-d34f-4ff1-a024-14e974fb9a4b`
+- Agent name: `x_agent`
+- Agent model: `gpt-5.5`
+- Execution mode: `run_only`
+- Reporting rule: results should be summarized directly in Multica task output, not written as local reports and not turned into issues by default
+
 ## Active Services (LaunchAgents)
 
 1. `com.solvea.engage-voc-ai`
@@ -24,6 +33,21 @@ This is the canonical map for VOC_ai automation connected to the current agent s
 - Plist: `/Users/siliconno3/Library/LaunchAgents/com.solvea.engage-mutual-voc-ai.plist`
 - Command: `/usr/bin/python3 -u /Users/siliconno3/x_agent/scripts/engage_daemon.py --config /Users/siliconno3/x_agent/accounts/VOC_ai/engage_config_mutual.json --once`
 - Purpose: mutual-target sweep for VOC_ai
+
+## Multica Autopilots
+
+1. `VOC_ai Mutual Engage - btcmind + hunter`
+- Runs one target sweep using `engage_config_mutual.json`
+
+2. `VOC_ai X Quote Scout`
+- Runs one quote scout using `engage_config.json`
+
+3. `VOC_ai X Keyword Engage`
+- Runs one keyword-engage sweep using `engage_config.json`
+
+Schedule for all three:
+- Cron: `15,45 * * * *`
+- Timezone: `America/Los_Angeles`
 
 ## VOC_ai Account Files
 

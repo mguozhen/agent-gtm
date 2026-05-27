@@ -1,6 +1,6 @@
 ---
 name: hunter-x-agent
-description: Operate and replicate the Hunter X growth-engine stack (engage daemon, Telegram approval bridge, coach bot, content scouts, booster accounts). Use when the user wants to check daemon status, tune engage_config.json, debug a stuck reply queue, interpret coach reports, OR set up the whole stack for a new X handle.
+description: Operate and replicate the Hunter X growth-engine stack, including engage daemon, Telegram approval bridge, analytics export feedback loop, content scouts, and Multica run-only tasks. Use when the user wants to debug Hunter automation, tune `accounts/GuoHunter95258`, or align Multica tasks with the live local stack.
 ---
 
 # Hunter X agent
@@ -11,10 +11,10 @@ The reference account is `@GuoHunter95258`. The same stack can be cloned for any
 
 ## When to use this skill
 
-- "Why isn't engage replying?" / "queue is stuck" / "coach hasn't pushed today"
+- "Why isn't engage replying?" / "queue is stuck" / "why didn't analytics suggest changes?"
 - "Add a target / keyword / archetype" / "tune the daily cap"
 - "Set up the stack for `@newhandle`"
-- Any reference to engage_daemon, telegram_bridge, coach_bot, reply_scorer, quote_scout, ai_news_scout, buildlog_drafts, boost_hunter, login_watchdog
+- Any reference to engage_daemon, telegram_bridge, analytics_export_test, reply_scorer, quote_scout, ai_news_scout, buildlog_drafts, boost_hunter, login_watchdog, Multica tasks/autopilots
 
 Do NOT use this skill for: writing single posts, generic X strategy, or anything that doesn't touch these daemons.
 
@@ -22,10 +22,10 @@ Do NOT use this skill for: writing single posts, generic X strategy, or anything
 
 ## System map
 
-Single source of truth: `engage_config.json` at repo root.
-Per-account assets live under `accounts/HANDLE/` (config.json, playbook.md, soul.md, targets.json, logs/) and `chrome-profiles/HANDLE/` (Chrome user-data-dir).
+Primary Hunter source of truth: `x_agent/accounts/GuoHunter95258/engage_config.json`.
+Per-account assets live under `x_agent/accounts/HANDLE/` (config.json, playbook.md, soul.md, targets.json, logs/) and `chrome-profiles/HANDLE/` if present on the deploy host.
 Process state lives in `state/` (JSON files: reply_queue, reply_engagement, engage_seen, winning_replies, coach_state, login_watchdog, telegram offsets).
-Daemons are managed by launchd via `com.solvea.*.plist` at repo root.
+Daemons are managed by launchd via `com.solvea.*.plist` on the local macOS host, and some one-shot runs are now driven via Multica `run_only` tasks.
 
 ### Daemon → script map
 
@@ -42,6 +42,12 @@ Daemons are managed by launchd via `com.solvea.*.plist` at repo root.
 
 `scripts/review_queue.py` is the consumer that actually posts approved drafts. Invoked from `engage_daemon` and as a periodic sweep.
 
+### Analytics + feedback loop
+
+- `scripts/analytics_export_test.py` — opens X analytics, exports CSV, joins rows against local posting metadata, and returns concise feedback
+- Preferred reporting mode: short suggested changes in task output, not raw JSON dumps or local report files
+- Feedback quality depends on row-to-post attribution quality; weak attribution means weaker suggestions
+
 ### Generation + content stack
 
 - `scripts/generate.py` — prompt construction, archetype-aware few-shot, model call (Claude Haiku 4.5 by default).
@@ -51,6 +57,13 @@ Daemons are managed by launchd via `com.solvea.*.plist` at repo root.
 - `scripts/buildlog_drafts.py` — drafts build-in-public posts from recent git commits (multica, gtm-swarm).
 - `scripts/topic_research.py` + `scripts/web_research.py` — research backing.
 - `scripts/repost_agent.py` — handles the repost flow via the second TG bot.
+
+### Multica alignment
+
+- Favor `run_only` tasks and autopilots
+- Report directly in Multica task output
+- Do not create issues unless the user explicitly asks
+- Prefer short summaries and suggested changes over long raw JSON payloads
 
 ### Required .env keys
 
@@ -105,7 +118,7 @@ python3 -c "import json; q=json.load(open('state/reply_queue.json')); from colle
 
 Statuses: `pending` (awaiting TG approval), `approved` (awaiting posting), `posted`, `skipped`, `failed`. Stuck on `pending` → telegram_bridge issue. Stuck on `approved` → review_queue / Chrome login issue.
 
-### 4. Tune engage_config.json safely
+### 4. Tune `accounts/GuoHunter95258/engage_config.json` safely
 
 Common edits and what to expect:
 
@@ -137,6 +150,7 @@ The plists in repo root are the source; symlink or copy them into `~/Library/Lau
 - **Daemons fighting over Chrome** → `scripts/lock.py` provides `chrome_lock` / `file_lock`. If a daemon hangs holding the lock, check `state/locks/`.
 - **Telegram offset stuck** → delete `state/telegram_offset.json` (or `..._repost.json`); bridge restarts from latest.
 - **engage_seen.json bloat** → it's append-only; safe to prune old entries by date.
+- **Analytics run completed but no suggestions** → usually either too little attributable data, weak metadata matching, or the result genuinely found no changes to recommend. Check the row attribution count before concluding the feedback loop is broken.
 
 ### 7. Coach commands (reference for the user)
 
@@ -173,9 +187,9 @@ For a separate engage stack (its own approval bridge, coach, etc.), also create 
 
 ### 4. Decide: shared config or per-account config?
 
-The current `engage_config.json` is hardcoded to `hunter_handle: GuoHunter95258` and `hunter_port: 10000`. Two paths:
+The current Hunter config is hardcoded to `hunter_handle: GuoHunter95258` and `hunter_port: 10000`. Two paths:
 
-- **Per-account config file**: copy `engage_config.json` → `engage_config.NEWHANDLE.json`, edit handle + port, and pass `--config` to `engage_daemon.py`.
+- **Per-account config file**: copy `accounts/GuoHunter95258/engage_config.json` to a per-account variant, edit handle + port, and pass `--config` to `engage_daemon.py`.
 - **Shared config refactor**: parameterize `hunter_handle` / `hunter_port` and run multiple daemon instances with `--account NEWHANDLE`. Bigger change; only do this if the user wants to run >2 accounts long-term.
 
 Default to per-account config — minimal blast radius.
@@ -225,7 +239,7 @@ If the new account also has booster accounts, add them to `boost.boosters` in th
 
 ## Files Claude should read before making non-trivial changes
 
-- `engage_config.json` — every knob lives here. Read before tuning anything.
+- `x_agent/accounts/GuoHunter95258/engage_config.json` — every Hunter knob lives here. Read before tuning anything.
 - `project_x_growth_strategy.md` — strategy doc: borrow-distribution thesis, quote-tweet-ability target, mid-tier reply-first workflow. Honor this when suggesting content direction.
 - `target-accounts.md` — scoring rubric for adding/removing targets.
 - The daemon's docstring (top of file) — every script's purpose is documented in its header.
