@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hunter X Analytics Analysis"
+  short_description: "Interpret Hunter X growth metrics"
+  default_prompt: "Use $hunter-x-analytics-analysis to review Hunter's latest X analytics and recommend system changes."
+
+policy:
+  allow_implicit_invocation: true

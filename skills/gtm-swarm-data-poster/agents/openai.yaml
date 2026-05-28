@@ -1,0 +1,7 @@
+interface:
+  display_name: "GTM Swarm Data Poster"
+  short_description: "Post telemetry batches to GTM Swarm"
+  default_prompt: "Use $gtm-swarm-data-poster to validate and push this telemetry batch to GTM Swarm."
+
+policy:
+  allow_implicit_invocation: true

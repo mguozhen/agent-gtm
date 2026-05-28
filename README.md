@@ -8,7 +8,8 @@ Repository for agent-era GTM methodology and X automation operations.
 |---|---|
 | [`skills/agent-gtm`](skills/agent-gtm/) | Claude Code skill for the 4-card Agent-First GTM playbook (Discovery / Traffic / Content / Distribution). |
 | [`skills/hunter-x-agent`](skills/hunter-x-agent/) | Skill for operating Hunter's X automation stack, analytics feedback loop, and Multica run-only tasks. |
-| [`skills/multica-hunter-x-analytics`](skills/multica-hunter-x-analytics/) | Skill for collecting Hunter X analytics telemetry and reporting `swarm.telemetry.v1` batches to GTM Swarm. |
+| [`skills/gtm-swarm-data-poster`](skills/gtm-swarm-data-poster/) | Skill for posting `swarm.telemetry.v1` batches, artifacts, and observations to GTM Swarm. |
+| [`skills/hunter-x-analytics-analysis`](skills/hunter-x-analytics-analysis/) | Skill for interpreting Hunter's X analytics and recommending growth-system changes. |
 | [`skills/voc-ai-x-agent`](skills/voc-ai-x-agent/) | Skill for operating the VOC.ai X automation stack and its restored `voc-ai` Multica workspace. |
 | [`x_agent/`](x_agent/) | X automation code and account configs (scripts + per-account config/playbook/targets). |
 | [`projects/voc-amazon-reviews/`](projects/voc-amazon-reviews/) | Project snapshot included in this repo (MCP server, docs, scripts, tests). |
@@ -39,14 +40,23 @@ Operator workflow for the Hunter X stack:
 - analytics export feedback loop
 - new-handle replication runbook
 
-### `multica-hunter-x-analytics`
+### `gtm-swarm-data-poster`
 
-Focused telemetry workflow for Hunter's Multica X analytics agent:
+Focused data posting workflow from Boyuan's GTM Swarm contract:
 
-- `collect_daily_telemetry` job handling
-- X analytics observation batching
-- GTM Swarm `swarm.telemetry.v1` validation
-- short analytics judgement and system-change recommendations
+- `swarm.telemetry.v1` batch validation
+- artifact and observation payload shape
+- `collect_daily_telemetry` result format
+- GTM Swarm push commands
+
+### `hunter-x-analytics-analysis`
+
+Focused analysis workflow for Hunter's X metrics:
+
+- candidate-set entry judgement
+- target/account pool changes
+- reply-taste updates
+- algorithm recommendations
 
 ### `voc-ai-x-agent`
 
@@ -63,7 +73,8 @@ Operator workflow for the `@VOC_ai` stack:
 git clone https://github.com/mguozhen/agent-gtm.git ~/code/agent-gtm
 ln -s ~/code/agent-gtm/skills/agent-gtm ~/.claude/skills/agent-gtm
 ln -s ~/code/agent-gtm/skills/hunter-x-agent ~/.claude/skills/hunter-x-agent
-ln -s ~/code/agent-gtm/skills/multica-hunter-x-analytics ~/.claude/skills/multica-hunter-x-analytics
+ln -s ~/code/agent-gtm/skills/gtm-swarm-data-poster ~/.claude/skills/gtm-swarm-data-poster
+ln -s ~/code/agent-gtm/skills/hunter-x-analytics-analysis ~/.claude/skills/hunter-x-analytics-analysis
 ln -s ~/code/agent-gtm/skills/voc-ai-x-agent ~/.claude/skills/voc-ai-x-agent
 ```
 

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Multica Hunter X Analytics"
-  short_description: "Hunter X telemetry for GTM Swarm"
-  default_prompt: "Use $multica-hunter-x-analytics to collect Hunter X telemetry for a Multica daily run."
-
-policy:
-  allow_implicit_invocation: true
